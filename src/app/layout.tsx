@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Button } from "@/components/ui/button";
+import ThemeSwitcher from "@/components/theme-switcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +38,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="w-full">
+              <div className="flex justify-between p-4">
+                <SidebarTrigger />
+                <ThemeSwitcher />
+              </div>
+              {children}
+            </main>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

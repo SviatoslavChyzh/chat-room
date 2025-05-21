@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <header>
-        <ThemeSwitcher />
+        
       </header>
       <main>
         <Button>Click me</Button>
