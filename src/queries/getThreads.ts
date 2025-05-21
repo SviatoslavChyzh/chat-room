@@ -6,7 +6,7 @@ export type Thread = {
   content: string;
 };
 
-export async function useThreads(): Promise<
+export async function getThreads(): Promise<
   Array<{ id: string; title: string; content: string }>
 > {
   const result = await new Promise((resolve) => {

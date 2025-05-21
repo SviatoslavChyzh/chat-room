@@ -1,8 +1,8 @@
-import { useThreads } from "@/queries/useThreads";
+import { getThreads } from "@/queries/getThreads";
 import Link from "next/link";
 
 export default async function ThreadsList() {
-  const threads = await useThreads();
+  const threads = await getThreads();
 
   return (
     <div className="flex flex-col gap-4">

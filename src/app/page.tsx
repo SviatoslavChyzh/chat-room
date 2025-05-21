@@ -5,10 +5,9 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader,
 } from "@/components/ui/card";
 import { useState } from "react";
-import { ArrowUp, ChevronDown, Globe, Paperclip, Search } from "lucide-react";
+import { ArrowUp, Globe, Paperclip } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
