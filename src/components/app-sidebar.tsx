@@ -18,9 +18,7 @@ export function AppSidebar() {
           <div className="font-semibold text-purple-800">Chat Room</div>
         </div>
         <div className="px-3 py-2">
-          <Button className="w-full bg-purple-700 hover:bg-purple-800">
-            New Chat
-          </Button>
+          <Button className="w-full">New Chat</Button>
         </div>
         <div className="px-3 py-2 relative">
           <div className="relative">
@@ -41,10 +39,10 @@ export function AppSidebar() {
           </Suspense>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="mb-8">
         <Button
-          variant="ghost"
-          className="pl-4 w-full justify-start text-purple-900"
+          variant="secondary"
+          className="pl-4 w-full bg-secondary border-2 justify-start text-purple-900"
         >
           <LogIn />
           Login

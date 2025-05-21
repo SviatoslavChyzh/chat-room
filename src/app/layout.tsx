@@ -40,11 +40,11 @@ export default function RootLayout({
         >
           <SidebarProvider>
             <AppSidebar />
-            <main className="w-full">
-              <div className="flex justify-between p-4">
+            <main className="w-full h-screen grid grid-rows-[auto_1fr]">
+              <header className="flex justify-between p-4">
                 <SidebarTrigger />
                 <ThemeSwitcher />
-              </div>
+              </header>
               {children}
             </main>
           </SidebarProvider>
