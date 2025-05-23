@@ -15,15 +15,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ChatMessage from "./_components/ChatMessage";
+import { mockMessages } from "../../fixtureData/messages";
 
 interface Message {
   id: string;
   content: string;
   isUser: boolean;
+  file?: File | null;
 }
 
 export default function Home() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(mockMessages);
   const [message, setMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -33,9 +35,11 @@ export default function Home() {
       id: Date.now().toString(),
       content: message,
       isUser: true,
+      file: selectedFile,
     };
 
     setMessages((prev) => [...prev, newUserMessage]);
+    setSelectedFile(null);
 
     setTimeout(() => {
       const aiResponse: Message = {
@@ -51,7 +55,6 @@ export default function Home() {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedFile(e.target.files[0]);
 
-      // Reset the input to allow selecting the same file again
       e.target.value = "";
     }
   };
@@ -71,7 +74,18 @@ export default function Home() {
           {messages.map((message) => (
             <ChatMessage key={message.id} isUser={message.isUser}>
               {message.isUser ? (
-                <p>{message.content}</p>
+                <>
+                  <p>{message.content}</p>
+                  {message.file && (
+                    <div className="mt-4">
+                      <img
+                        src={URL.createObjectURL(message.file)}
+                        alt="Selected file"
+                        className="max-w-full h-auto rounded-lg"
+                      />
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="space-y-4">
                   {message.content.split("\n\n").map((paragraph, i) => (
@@ -116,6 +130,21 @@ export default function Home() {
             </Button>
           </div>
           <div className="flex gap-4 items-center">
+            {selectedFile && (
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <span className="truncate max-w-[120px]">
+                  {selectedFile.name}
+                </span>
+                <button
+                  type="button"
+                  className="text-red-500 hover:text-red-700"
+                  onClick={() => setSelectedFile(null)}
+                  title="Remove file"
+                >
+                  ×
+                </button>
+              </div>
+            )}
             <Button
               size="icon"
               variant="ghost"

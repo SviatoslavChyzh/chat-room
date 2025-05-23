@@ -1,5 +1,4 @@
 import { getThreads } from "@/queries/getThreads";
-import Link from "next/link";
 
 export default async function ThreadsList() {
   const threads = await getThreads();
