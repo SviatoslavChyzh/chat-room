@@ -121,3 +121,43 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.message-animation-user {
+  animation: fadeIn 0.3s ease-out, slideInRight 0.3s ease-out;
+}
+
+.message-animation-ai {
+  animation: fadeIn 0.4s ease-out, slideInLeft 0.4s ease-out;
+}

@@ -1,12 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { useState } from "react";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { useRef, useState } from "react";
 import { ArrowUp, Globe, Paperclip } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -29,6 +25,8 @@ interface Message {
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSendMessage = () => {
     const newUserMessage: Message = {
@@ -47,6 +45,15 @@ export default function Home() {
       };
       setMessages((prev) => [...prev, aiResponse]);
     }, 1000);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedFile(e.target.files[0]);
+
+      // Reset the input to allow selecting the same file again
+      e.target.value = "";
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -109,8 +116,20 @@ export default function Home() {
             </Button>
           </div>
           <div className="flex gap-4 items-center">
-            <Button size="icon" variant="ghost" className="text-gray-400">
+            <Button
+              size="icon"
+              variant="ghost"
+              className="text-gray-400"
+              onClick={() => fileInputRef.current?.click()}
+              type="button"
+            >
               <Paperclip className="h-5 w-5" />
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleFileChange}
+              />
             </Button>
             <Button
               size="icon"
